@@ -41,6 +41,7 @@ public:
     int parseLogDirReply(QByteArray &input, QList<MovesCountLogDirEntry> &entries);
 
     int generateLogData(LogEntry *logEntry, QByteArray &output);
+    int generateUserdevice(const DeviceInfo& device, QByteArray& output);
     
 signals:
     

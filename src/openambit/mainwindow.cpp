@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->chargeIndicator->setHidden(true);
     ui->checkBoxResyncAll->setHidden(true);
     ui->buttonSyncNow->setHidden(true);
+    ui->createUserDevice->setHidden(true);
     ui->syncProgressBar->setHidden(true);
 
 
@@ -99,6 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(deviceManager, SIGNAL(syncProgressInform(QString,bool,bool,quint8)), this, SLOT(syncProgressInform(QString,bool,bool,quint8)), Qt::QueuedConnection);
     connect(ui->buttonDeviceReload, SIGNAL(clicked()), deviceManager, SLOT(detect()));
     connect(ui->buttonSyncNow, SIGNAL(clicked()), this, SLOT(syncNowClicked()));
+    connect(ui->createUserDevice, SIGNAL(clicked()), this, SLOT(createUserDevice()));
     connect(this, SIGNAL(syncNow(bool,bool,bool,bool)), deviceManager, SLOT(startSync(bool,bool,bool,bool)));
     deviceWorkerThread.start();
     deviceManager->start();
@@ -236,6 +238,11 @@ void MainWindow::syncNowClicked()
     startSync();
 }
 
+void MainWindow::createUserDevice()
+{
+    movesCount->createUserDevice();
+}
+
 void MainWindow::deviceDetected(const DeviceInfo& deviceInfo)
 {
     if (0 != deviceInfo.access_status) {
@@ -259,6 +266,7 @@ void MainWindow::deviceDetected(const DeviceInfo& deviceInfo)
         ui->chargeIndicator->setHidden(true);
         ui->checkBoxResyncAll->setHidden(true);
         ui->buttonSyncNow->setHidden(true);
+        ui->createUserDevice->setHidden(true);
         trayIconSyncAction->setDisabled(true);
         ui->syncProgressBar->setHidden(true);
     }
@@ -273,6 +281,7 @@ void MainWindow::deviceDetected(const DeviceInfo& deviceInfo)
         ui->chargeIndicator->setHidden(false);
         ui->checkBoxResyncAll->setHidden(false);
         ui->buttonSyncNow->setHidden(false);
+        ui->createUserDevice->setHidden(false);
         trayIconSyncAction->setDisabled(false);
 
         movesCountSetup();
@@ -310,6 +319,7 @@ void MainWindow::deviceRemoved(void)
     ui->chargeIndicator->setHidden(true);
     ui->checkBoxResyncAll->setHidden(true);
     ui->buttonSyncNow->setHidden(true);
+    ui->createUserDevice->setHidden(true);
     trayIconSyncAction->setDisabled(true);
     ui->syncProgressBar->setHidden(true);
 

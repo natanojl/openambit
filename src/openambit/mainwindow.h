@@ -68,6 +68,7 @@ private slots:
     void settingsSaved();
 
     void syncNowClicked();
+    void createUserDevice();
 
     void deviceDetected(const DeviceInfo& deviceInfo);
     void deviceRemoved();

@@ -755,3 +755,20 @@ QDateTime MovesCountJSON::dateTimeCompensate(QDateTime dateTime, QDateTime prevD
     }
     return dateTime;
 }
+
+int MovesCountJSON::generateUserdevice(const DeviceInfo& device, QByteArray& output)
+{
+    QVariantMap content;
+    QJson::Serializer serializer;
+    bool ok;
+
+    serializer.setDoublePrecision(16);
+    serializer.setIndentMode(QJson::IndentCompact);
+
+    content.insert("DeviceName", device.model);
+    content.insert("SerialNumber", device.serial);
+
+    output = serializer.serialize(content, &ok);
+
+    return (ok ? 0 : -1);
+}
